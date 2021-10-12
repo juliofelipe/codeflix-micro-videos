@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: codeflix_micro_videos
+    volumes:
+      - ".:/app"
+    ports:
+      - 5005:5000
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: codeflix_micro_videos_db
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_DB=codeflix_micro_videos_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
